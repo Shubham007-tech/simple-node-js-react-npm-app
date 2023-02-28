@@ -15,9 +15,9 @@ pipeline {
            script{
                echo "building docker image..."
                withCredentials([usernamePassword(credentialsId:'dockerhubaccount' , passwordVariable:'PASS' , usernameVariable:'USER')]){
-                  sh 'docker build -t shubhamglobal/nodenana:1.0 .'
+                  sh 'docker build -t shubhamglobal/nodenana:2.0 .'
                   sh "docker login -u $USER --password-stdin"
-                  sh 'docker push shubhamglobal/nodenana:1.0'
+                  sh 'docker push shubhamglobal/nodenana:2.0'
                    
                }
              }
