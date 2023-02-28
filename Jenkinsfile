@@ -14,18 +14,22 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Test') {
-                    steps {
-                        sh './jenkins/scripts/test.sh'
-                    }
-                }
-                stage('Deliver') {
-                            steps {
-                                sh './jenkins/scripts/deliver.sh'
-                                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                                sh './jenkins/scripts/kill.sh'
-                            }
+        stage('build & push docker') {
+                    
+            steps{
+           script{
+               echo "building docker image..."
+               withCredentials([usernamePassword(credentialsId:'dockerhubaccount' , passwordVariable:'PASS' , usernameVariable:'USER')]){
+                  sh 'docker build -t shubhamglobal/nodenana:1.0 .'
+                  sh "echo $PASS | docker login -u $USER --password-stdin"
+                  sh 'docker push shubhamglobal/nodenana:1.0'
+                   
+               }
+             }
+           }
+                
                         }
 
     }
 }
+
