@@ -24,6 +24,22 @@ pipeline {
            }
                 
                         }
+        
+        
+        /*   /// alternate way
+         steps {
+  script {
+    echo "Building Docker image..."
+    withCredentials([usernamePassword(credentialsId: 'dockerhubaccount', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+      docker.withRegistry("https://registry.hub.docker.com", "dockerhubaccount") {
+        def dockerImage = docker.build("shubhamglobal/nodenana:1.0")
+        dockerImage.push()
+      }
+    }
+  }
+}
+        
+        */
 
     }
 }
