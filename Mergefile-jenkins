@@ -1,0 +1,26 @@
+pipeline {
+  agent any
+
+  triggers {
+    gitlab(triggerOnPush: true, triggerOnMergeRequest: true)
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        echo 'make build'
+      }
+    }
+    stage('Test') {
+      steps {
+        echo 'make test'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'make deploy'
+      }
+    }
+  }
+}
+
